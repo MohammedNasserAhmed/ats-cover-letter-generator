@@ -1,6 +1,6 @@
-FROM python:3.9-slim
+FROM python:3.13-slim
 
-WORKDIR /app
+WORKDIR /src/ats_cover_letter_generator
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \

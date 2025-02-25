@@ -1,6 +1,6 @@
-# Deployment Guide for Smart Cover Letter Generator
+# Deployment Guide for ATS Cover Letter Generator
 
-This guide provides detailed instructions for deploying the Smart Cover Letter Generator on various platforms.
+This guide provides detailed instructions for deploying the ATS Cover Letter Generator on various platforms.
 
 ## Table of Contents
 - [Local Development](#local-development)
@@ -99,7 +99,7 @@ For more control over your deployment environment, you can use Docker.
    Create a file named `Dockerfile` in your project root:
 
    ```dockerfile
-   FROM python:3.9-slim
+   FROM python:3.13-slim
 
    WORKDIR /app
 
@@ -119,7 +119,7 @@ For more control over your deployment environment, you can use Docker.
    docker build -t cover-letter-generator .
 
    # Run the container
-   docker run -p 8501:8501 -e GROQ_API_KEY=your_groq_api_key_here cover-letter-generator
+   docker run -p 8501:8501 -e GROQ_API_KEY=your_groq_api_key_here ats-cover-letter-generator
    ```
 
 3. **Access the application**

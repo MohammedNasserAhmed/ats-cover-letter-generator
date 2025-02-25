@@ -1,6 +1,8 @@
 FROM python:3.13-slim
 
-WORKDIR /src/ats_cover_letter_generator
+WORKDIR /app
+
+
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -23,4 +25,4 @@ EXPOSE 8501
 ENV PYTHONUNBUFFERED=1
 
 # Start the application
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "src/ats_cover_letter_generator/app.py", "--server.port=8501", "--server.address=0.0.0.0"]

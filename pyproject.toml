@@ -1,0 +1,20 @@
+[project]
+name = "ats-cover-letter-generator"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "MohammedNasserAhmed", email = "abunasserip@gmail.com" }
+]
+requires-python = ">=3.13.1"
+dependencies = [
+    "pre-commit>=4.1.0",
+    "ruff>=0.9.7",
+]
+
+[project.scripts]
+ats-cover-letter-generator = "ats_cover_letter_generator:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

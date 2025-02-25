@@ -1,0 +1,40 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Ignore virtual environments
+env/
+venv/
+.venv/
+ENV/
+
+# Ignore build and distribution artifacts
+build/
+dist/
+downloads/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Ignore system-generated files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignore Streamlit secrets (important for security)
+.streamlit/secrets.toml
+
+# Ignore Git-related files (not needed in Docker image)
+.git
+.gitignore
+
+# Ignore environment variables
+.env

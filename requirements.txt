@@ -1,0 +1,11 @@
+streamlit
+ruff
+pre-commit
+requests
+PyMuPDF
+pillow
+beautifulsoup4
+matplotlib
+numpy
+fpdf
+python-dotenv

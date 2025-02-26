@@ -1,3 +1,35 @@
+"""
+ATS Cover Letter Generator App
+This Streamlit application generates ATS-optimized, professional cover letters tailored to specific job applications using AI.
+Users can upload their CV, provide the job description, and get a customized cover letter in seconds.
+Modules:
+- base64: Encoding and decoding of base64 strings.
+- os: Miscellaneous operating system interfaces.
+- re: Regular expression operations.
+- tempfile: Generate temporary files and directories.
+- io: Core tools for working with streams.
+- pathlib: Object-oriented filesystem paths.
+- fitz: PyMuPDF library for PDF processing.
+- numpy: Scientific computing with Python.
+- requests: HTTP library for making requests.
+- streamlit: Framework for creating web apps.
+- bs4: BeautifulSoup library for web scraping.
+- dotenv: Load environment variables from .env file.
+- fpdf: PDF generation library.
+- PIL: Python Imaging Library for image processing.
+Functions:
+- extract_text_from_pdf(pdf_file): Extracts text from a PDF file.
+- extract_job_description_from_url(url): Extracts job description text from a given URL.
+- generate_signature(name): Generates a signature image from a given name.
+- generate_cover_letter(resume_text, job_description): Calls the Groq API to generate a cover letter based on the resume and job description.
+- create_pdf_cover_letter(cover_letter_text, signature_image): Converts the generated cover letter to a PDF with an optional signature image.
+Usage:
+1. Upload your resume (PDF).
+2. Provide a job description either by URL or by pasting the text.
+3. Adjust AI creativity settings if needed.
+4. Generate and download the cover letter as a PDF.
+"""
+
 import base64
 import os
 import re
@@ -51,22 +83,47 @@ with st.sidebar:
     temperature = st.slider("AI Creativity (Temperature)", 0.0, 1.0, 0.4, 0.1)
 
 
-# Function to extract text from PDF
 def extract_text_from_pdf(pdf_file):
+    """
+    Extracts text from a PDF file.
+
+    Args:
+        pdf_file: A file-like object representing the PDF.
+
+    Returns:
+        A string containing the extracted text from the PDF, or None if an error occurs.
+    """
     try:
+        # Read the PDF file bytes
         pdf_bytes = pdf_file.read()
-        with fitz.open(stream=pdf_bytes, filetype="pdf") as doc:
-            text = ""
-            for page in doc:
-                text += page.get_text()
+
+        # Open the PDF document using PyMuPDF's Document class
+        doc = fitz.Document(stream=pdf_bytes, filetype="pdf")
+        text = ""
+        # Iterate through each page and extract text
+        for page in doc:
+            text += page.get_text()
+        doc.close()  # Explicitly close the document
+
         return text
+
     except Exception as e:
+        # Display an error message if text extraction fails
         st.error(f"Error extracting text from PDF: {e}")
         return None
 
 
 # Function to extract content from job URL
-def extract_job_description_from_url(url):
+def extract_job_description_from_url(url: str) -> str | None:
+    """
+    Extracts the job description text from a given URL.
+
+    Args:
+        url: The URL to extract the job description from.
+
+    Returns:
+        The extracted job description text, or None if an error occurs.
+    """
     try:
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
@@ -87,7 +144,16 @@ def extract_job_description_from_url(url):
 
 
 # Function to generate a signature image
-def generate_signature(name):
+def generate_signature(name: str) -> bytes:
+    """
+    Generates a signature image from a given name.
+
+    Args:
+        name: The name to generate the signature for.
+
+    Returns:
+        The generated signature image as bytes.
+    """
     # Create a blank image with a white background
     img = Image.new("RGB", (400, 200), color=(255, 255, 255))
     d = ImageDraw.Draw(img)
@@ -124,7 +190,17 @@ def generate_signature(name):
 
 
 # Function to call Groq API
-def generate_cover_letter(resume_text, job_description):
+def generate_cover_letter(resume_text: str, job_description: str) -> str | None:
+    """
+    Calls the Groq API to generate a cover letter based on the resume and job description.
+
+    Args:
+        resume_text (str): The resume text.
+        job_description (str): The job description.
+
+    Returns:
+        The generated cover letter as a string, or None if an error occurs.
+    """
     if not groq_api_key:
         st.error("Please enter your Groq API key in the sidebar.")
         return None
@@ -183,18 +259,23 @@ def generate_cover_letter(resume_text, job_description):
 
 # Function to convert cover letter to PDF
 def create_pdf_cover_letter(cover_letter_text, signature_image):
+    """
+    Converts the generated cover letter into a PDF with an optional signature image.
+
+    Args:
+        cover_letter_text (str): The text content of the cover letter.
+        signature_image (bytes): The signature image as bytes.
+
+    Returns:
+        bytes: The generated PDF as a byte string, or None if an error occurs.
+    """
     try:
         # Initialize PDF
         pdf = FPDF()
         pdf.add_page()
 
-        # Set font
+        # Set title font
         pdf.set_font("Arial", size=12)
-
-        # Add date
-        # current_date = datetime.now().strftime("%B %d, %Y")
-        # pdf.cell(0, 10, current_date, ln=True)
-        # pdf.ln(10)
 
         # Add content with proper line breaks
         pdf.set_font("Arial", size=11)
@@ -203,24 +284,26 @@ def create_pdf_cover_letter(cover_letter_text, signature_image):
         lines = cover_letter_text.split("\n")
         for line in lines:
             if line.strip() == "":
+                # Add space for empty lines
                 pdf.ln(5)
             else:
+                # Add text lines with automatic wrapping
                 pdf.multi_cell(0, 5, line)
 
         # Add space for signature
         pdf.ln(15)
 
-        # Add signature image (adjusted to approximately 4 cm width)
+        # Add signature image if provided
         if signature_image:
-            # Save signature image to temp file
+            # Save signature image to temporary file
             with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp:
                 temp.write(signature_image)
                 temp_path = temp.name
 
-            # Add the image with width of approximately 4 cm (40 mm in FPDF)
+            # Add the image with a width of approximately 4 cm
             pdf.image(temp_path, x=pdf.get_x(), y=pdf.get_y(), w=40)
 
-            # Clean up
+            # Remove temporary file
             os.unlink(temp_path)
 
         # Get the PDF as bytes
@@ -228,6 +311,7 @@ def create_pdf_cover_letter(cover_letter_text, signature_image):
         return pdf_bytes
 
     except Exception as e:
+        # Display an error message if PDF creation fails
         st.error(f"Error creating PDF: {e}")
         return None
 

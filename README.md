@@ -1,4 +1,4 @@
-### **📝 ATS Cover Letter Generator**  
+# **📝 ATS Cover Letter Generator**  
 **An AI-powered ATS-optimized cover letter generator leveraging LLaMA-3.1-8B-Instant via Groq's API.**  
 
 ![GitHub stars](https://img.shields.io/github/stars/MohammedNasserAhmed/ats-cover-letter-generator?style=social)  

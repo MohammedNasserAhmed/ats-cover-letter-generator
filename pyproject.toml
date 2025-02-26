@@ -22,7 +22,7 @@ dependencies = [
     "numpy>=2.2.3",
     "fpdf>=1.7.2",
     "python-dotenv>=1.0.1",
-    "pandas>=2.2.3"
+    "pandas>=2.2.3",
 ]
 
 [project.scripts]

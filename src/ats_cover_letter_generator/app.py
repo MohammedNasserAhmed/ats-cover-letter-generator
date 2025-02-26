@@ -35,8 +35,6 @@ Upload your CV, provide the job description, and get a customized cover letter i
 
 # Sidebar for API configuration
 with st.sidebar:
-    st.header("API Configuration")
-
     groq_api_key = os.getenv("GROQ_API_KEY")
     if not groq_api_key:
         st.error("Groq API key is missing! Please check your .env file.")

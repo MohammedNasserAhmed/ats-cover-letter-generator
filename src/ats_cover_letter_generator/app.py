@@ -20,7 +20,7 @@ load_dotenv(dotenv_path=env_path)
 
 # Page configuration
 st.set_page_config(
-    page_title="Smart Cover Letter Generator",
+    page_title="ATS Cover Letter Generator",
     page_icon="📝",
     layout="wide",
     initial_sidebar_state="expanded",

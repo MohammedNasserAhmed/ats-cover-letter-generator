@@ -370,7 +370,7 @@ if submit_button:
                 # Create a PDF viewer for the resume
                 # base64_resume = base64.b64encode(resume_bytes).decode("utf-8")
                 # pdf_viewer = f'<iframe src="data:application/pdf;base64,{base64_resume}" width="100%" height="500" type="application/pdf"></iframe>'
-                st.markdown(pdf_viewer, unsafe_allow_html=True)
+                # st.markdown(pdf_viewer, unsafe_allow_html=True)
 
                 # Still keep text view as an option
                 with st.expander("View Resume as Text", expanded=False):

@@ -4,7 +4,6 @@ import re
 import tempfile
 from io import BytesIO
 from pathlib import Path
-
 import fitz  # PyMuPDF
 import numpy as np
 import requests

@@ -45,6 +45,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from fpdf import FPDF
 from PIL import Image, ImageDraw, ImageFont
+from streamlit_pdf_viewer import pdf_viewer
 
 # Load the .env file from the source path
 env_path = Path(__file__).resolve().parents[2] / ".env"
@@ -362,11 +363,13 @@ if submit_button:
 
             with col1:
                 st.subheader("Your Resume")
+                # Display the uploaded resume
+                binary_data = resume_file.getvalue()
+                pdf_viewer(binary_data, width=700)
 
                 # Create a PDF viewer for the resume
-                resume_bytes = resume_file.getvalue()
-                base64_resume = base64.b64encode(resume_bytes).decode("utf-8")
-                pdf_viewer = f'<iframe src="data:application/pdf;base64,{base64_resume}" width="100%" height="500" type="application/pdf"></iframe>'
+                # base64_resume = base64.b64encode(resume_bytes).decode("utf-8")
+                # pdf_viewer = f'<iframe src="data:application/pdf;base64,{base64_resume}" width="100%" height="500" type="application/pdf"></iframe>'
                 st.markdown(pdf_viewer, unsafe_allow_html=True)
 
                 # Still keep text view as an option

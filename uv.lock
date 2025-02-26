@@ -1,6 +1,6 @@
 version = 1
 revision = 1
-requires-python = ">=3.13.1"
+requires-python = ">=3.12.7"
 
 [[package]]
 name = "ats-cover-letter-generator"

@@ -4,6 +4,15 @@ import re
 import tempfile
 from io import BytesIO
 from pathlib import Path
+import subprocess
+import sys
+
+# Check installed packages
+installed_packages = subprocess.run([sys.executable, "-m", "pip", "list"], capture_output=True, text=True)
+print(installed_packages.stdout)  # Print installed packages to logs
+
+# Check Python version
+print(f"Python version: {sys.version}")
 
 import fitz  # PyMuPDF
 import numpy as np

@@ -85,6 +85,7 @@ The sidebar provides controls for adjusting the AI's creativity level (temperatu
 - **High (0.8-1.0)**: More innovative, varied outputs
 
 ```
+```
 
 ## **📊 Performance & Limitations**
 
@@ -121,7 +122,6 @@ ats-cover-letter-generator/
 ├── README.md                     # Project documentation
 └── .env                          # Environment variables                    # Project documentation
 ```
-
 ## **📝 License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

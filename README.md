@@ -69,24 +69,6 @@ docker build -t ats-cover-letter-generator .
 # Run the container
 docker run -p 8501:8501 --env-file .env ats-cover-letter-generator
 ```
-
-### **☁️ Streamlit Cloud**
-
-1. Fork this repository to your GitHub account
-2. Log in to [Streamlit Cloud](https://streamlit.io/cloud)
-3. Create a new app & point to your forked repository
-4. Set the main file path to `src/ats_cover_letter_generator/app.py`
-5. Add your `GROQ_API_KEY` under "Secrets Management"
-6. Deploy and share your application
-
-### **🤗 Hugging Face Spaces**
-
-1. Create a Hugging Face account
-2. Create a new Space (select Streamlit SDK)
-3. Configure the repository settings to point to your GitHub repo
-4. Add `GROQ_API_KEY` in Settings → Secrets
-5. Deploy and share your Space URL
-
 ### **🖥️ Production Server (Background Process)**
 
 ```bash
@@ -102,24 +84,6 @@ The sidebar provides controls for adjusting the AI's creativity level (temperatu
 - **Medium (0.4-0.7)**: Balanced creativity and precision
 - **High (0.8-1.0)**: More innovative, varied outputs
 
-### **Modifying Templates**
-
-Edit the PDF template in `src/ats_cover_letter_generator/utils/pdf_generator.py`:
-
-```python
-def create_pdf_cover_letter(content, name, signature_image):
-    # Customize styling, layout and formatting here
-    ...
-```
-
-### **Custom Prompts**
-
-Enhance the AI prompting in `src/ats_cover_letter_generator/utils/ai_helpers.py`:
-
-```python
-def generate_cover_letter(resume_text, job_description, temp=0.7):
-    # Modify the prompt template to adjust tone, style, or focus
-    ...
 ```
 
 ## **📊 Performance & Limitations**

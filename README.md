@@ -67,7 +67,7 @@ Then access the app at [http://localhost:8501](http://localhost:8501)
 docker build -t ats-cover-letter-generator .
 
 # Run the container
-docker run -d -p 8501:8501 -e GROQ_API_KEY=your_groq_api_key_here ats-cover-letter-generator
+docker run -p 8501:8501 --env-file .env ats-cover-letter-generator
 ```
 
 ### **☁️ Streamlit Cloud**

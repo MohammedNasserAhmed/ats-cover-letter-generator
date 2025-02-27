@@ -30,7 +30,7 @@ Usage:
 4. Generate and download the cover letter as a PDF.
 """
 
-import base64
+# import base64
 import os
 import re
 import tempfile
@@ -60,7 +60,7 @@ st.set_page_config(
 )
 
 # App title and description
-st.title("Smart Cover Letter Generator")
+st.title("ATS Cover Letter Generator")
 st.markdown("""
 Generate ATS-optimized, professional cover letters tailored to specific job applications using AI.
 Upload your CV, provide the job description, and get a customized cover letter in seconds.
@@ -415,9 +415,10 @@ if submit_button:
                     )
 
                     # Preview PDF
-                    base64_pdf = base64.b64encode(pdf_bytes).decode("utf-8")
-                    display_pdf = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="600" type="application/pdf"></iframe>'
-                    st.markdown(display_pdf, unsafe_allow_html=True)
+                    pdf_viewer(pdf_bytes, width=700)
+                    # base64_pdf = base64.b64encode(pdf_bytes).decode("utf-8")
+                    # display_pdf = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="600" type="application/pdf"></iframe>'
+                    # st.markdown(display_pdf, unsafe_allow_html=True)
 
 # Tips and instructions
 with st.expander("Tips for Better Results"):
